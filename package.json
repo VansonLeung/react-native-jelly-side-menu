@@ -1,0 +1,42 @@
+{
+  "name": "react-native-jelly-side-menu",
+  "version": "0.0.1",
+  "description": "A side menu that animates like a jelly! iOS & Android tested.",
+  "main": "JellySideMenu.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VansonLeung/react-native-jelly-side-menu.git"
+  },
+  "tags": [
+    "react",
+    "react-native",
+    "react-component",
+    "ios",
+    "android",
+    "menu",
+    "drawer"
+  ],
+  "keywords": [
+    "react",
+    "react-native",
+    "ios",
+    "android",
+    "react-component",
+    "menu",
+    "drawer"
+  ],
+  "author": "Vanson Wing Leung <vanson@vanportdev.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VansonLeung/react-native-jelly-side-menu/issues"
+  },
+  "homepage": "https://github.com/VansonLeung/react-native-jelly-side-menu#readme",
+  "dependencies": {
+    "react-native": ">=0.25.0",
+    "react-native-svg": ">=2.2.0",
+    "rebound": ">=0.0.13"
+  }
+}
