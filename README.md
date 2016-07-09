@@ -4,6 +4,10 @@ A side menu that animates like a jelly! iOS & Android tested.
 [![npm version](https://badge.fury.io/js/react-native-jelly-side-menu.svg)](http://badge.fury.io/js/react-native)
 [![NPM](https://nodei.co/npm/react-native-jelly-side-menu.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-native-jelly-side-menu/)
 
+## Demo Showcase (Youtube link)
+[https://www.youtube.com/watch?v=lvyJX2-l8pM](https://www.youtube.com/watch?v=lvyJX2-l8pM)
+## 
+[![Demo Showcase](https://img.youtube.com/vi/lvyJX2-l8pM/0.jpg)](https://www.youtube.com/watch?v=lvyJX2-l8pM)
 
 ## Installation
 ```shell
