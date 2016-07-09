@@ -97,5 +97,6 @@ class JellySideMenuPage extends Component {
 ✔ Android Support @done (16-07-09 12:07)
 ☐ Context control toggle support
 ☐ Remove unnecessary imports
-☐ Side menu docking direction support (top, left, right, bottom)
+☐ Add Fine tune control parameters support (thresholds of dragging, menu width, bounce tension & friction)
+☐ Add Side menu docking direction support (top, left, right, bottom)
 ☐ Performance improvement
