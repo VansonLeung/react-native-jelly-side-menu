@@ -1,6 +1,6 @@
 {
   "name": "react-native-jelly-side-menu",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A side menu that animates like a jelly! iOS & Android tested.",
   "main": "JellySideMenu.js",
   "scripts": {
@@ -36,7 +36,9 @@
   "homepage": "https://github.com/VansonLeung/react-native-jelly-side-menu#readme",
   "dependencies": {
     "react-native": ">=0.25.0",
-    "react-native-svg": ">=2.2.0",
     "rebound": ">=0.0.13"
+  },
+  "peerDependencies": {
+    "react-native-svg": ">=2.2.0"
   }
 }
