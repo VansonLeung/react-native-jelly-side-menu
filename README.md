@@ -63,8 +63,8 @@ class JellySideMenuPage extends Component {
     return (
       <View>
         {this.renderItem("Jelly Side Menu by Vanport", () => {})}
-        {this.renderItem("Toggle Side Menu", () => {Actions.TransitionalPage(); this.jsm.toggleSideMenu();})}
-        {this.renderItem("Close Side Menu", () => {Actions.pop(); this.jsm.toggleSideMenu(false);})}
+        {this.renderItem("Toggle Side Menu", () => {this.jsm.toggleSideMenu();})}
+        {this.renderItem("Close Side Menu", () => {this.jsm.toggleSideMenu(false);})}
       </View>
     )
   }
