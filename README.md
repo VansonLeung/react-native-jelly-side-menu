@@ -9,6 +9,9 @@ A side menu that animates like a jelly! iOS & Android tested.
 ## 
 [![Demo Showcase](https://img.youtube.com/vi/lvyJX2-l8pM/0.jpg)](https://www.youtube.com/watch?v=lvyJX2-l8pM)
 
+## Prerequisites
+React Native 0.25
+
 ## Installation
 ```shell
 npm i react-native-jelly-side-menu --save
