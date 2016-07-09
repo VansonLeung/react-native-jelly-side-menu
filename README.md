@@ -8,6 +8,9 @@ A side menu that animates like a jelly! iOS & Android tested.
 [https://www.youtube.com/watch?v=lvyJX2-l8pM](https://www.youtube.com/watch?v=lvyJX2-l8pM)
 ## 
 [![Demo Showcase](https://img.youtube.com/vi/lvyJX2-l8pM/0.jpg)](https://www.youtube.com/watch?v=lvyJX2-l8pM)
+##
+<img src="http://i.imgur.com/gD7kFvi.gif" alt="Demo Showcase" width=300 height=200 style="width: 300px; height: 200px; max-width: auto;"/>
+
 
 ## Prerequisites
 React Native 0.25 or higher
