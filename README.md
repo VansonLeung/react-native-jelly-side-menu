@@ -96,8 +96,3 @@ class JellySideMenuPage extends Component {
 ☐ Remove unnecessary imports
 ☐ Side menu docking direction support (top, left, right, bottom)
 ☐ Performance improvement
-
-
-## License
-
-MIT.
