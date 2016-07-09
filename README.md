@@ -18,6 +18,7 @@ React Native 0.25 or higher
 ## Installation
 ```shell
 npm i react-native-jelly-side-menu --save
+rnpm link
 ```
 
 ## Usage
