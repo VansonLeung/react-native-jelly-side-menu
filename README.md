@@ -9,7 +9,7 @@ A side menu that animates like a jelly! iOS & Android tested.
 ## 
 [![Demo Showcase](https://img.youtube.com/vi/lvyJX2-l8pM/0.jpg)](https://www.youtube.com/watch?v=lvyJX2-l8pM)
 ##
-<img src="http://i.imgur.com/gD7kFvi.gif" alt="Demo Showcase" width=300 height=200 style="width: 300px; height: 200px; max-width: auto;"/>
+<img src="http://i.imgur.com/gD7kFvi.gif" alt="Demo Showcase" width=200 height=300 style="width: 200px; height: 300px; max-width: auto;"/>
 
 
 ## Prerequisites
