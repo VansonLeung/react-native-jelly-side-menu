@@ -106,4 +106,5 @@ class JellySideMenuPage extends Component {
 ☐ Add Menu State check function (getState() => State)
 ☐ Add Fine tune control parameters support (thresholds of dragging, menu width, bounce tension & friction)
 ☐ Add Side menu docking direction support (top, left, right, bottom)
+☐ Cater device orientation change
 ☐ Performance improvement
