@@ -50,6 +50,9 @@ class JellySideMenu extends Component {
       offsetDragY : height / 2,
     }
     this.makePanResponder();
+
+    this.onJellyUndocked = this.onJellyUndocked.bind(this);
+    this.onJellyNotUndocked = this.onJellyNotUndocked.bind(this);
   }
 
   makePanResponder() {
@@ -89,7 +92,8 @@ class JellySideMenu extends Component {
   }
 
   onDragSideMenuSvg(x, y) {
-    this.sideMenuSvg.setOffsetDrag(x, y, false)
+    this.refs.sideMenuSvgWrapper ? this.refs.sideMenuSvgWrapper.onJellyNotUndocked() : {};
+    this.refs.sideMenuSvg ? this.refs.sideMenuSvg.setOffsetDrag(x, y, false) : {};
   }
 
   onDropSideMenuSvg(bool) {
@@ -97,12 +101,13 @@ class JellySideMenu extends Component {
       this.setState({
         is_dock: true
       })
-      this.sideMenuSvg.dockOffsetDrag(true)
+      this.refs.sideMenuSvgWrapper ? this.refs.sideMenuSvgWrapper.onJellyNotUndocked() : {};
+      this.refs.sideMenuSvg ? this.refs.sideMenuSvg.dockOffsetDrag(true) : {};
     } else {
       this.setState({
         is_dock: false
       })
-      this.sideMenuSvg.resetOffsetDrag(true)
+      this.refs.sideMenuSvg ? this.refs.sideMenuSvg.resetOffsetDrag(true) : {};
     }
   }
 
@@ -112,6 +117,17 @@ class JellySideMenu extends Component {
     } else {
       this.onDropSideMenuSvg(bool);
     }
+  }
+
+
+
+  onJellyNotUndocked() {
+    this.refs.sideMenuSvgWrapper ? this.refs.sideMenuSvgWrapper.onJellyNotUndocked() : {};
+  }
+
+
+  onJellyUndocked() {
+    this.refs.sideMenuSvgWrapper ? this.refs.sideMenuSvgWrapper.onJellyUndocked() : {};
   }
 
 
@@ -132,19 +148,79 @@ class JellySideMenu extends Component {
         <View style={[{position: 'absolute', top: 0, left: 0, bottom: 0, backgroundColor: this.state.is_dock ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0)'}, dockStyle]} {...this.getPanHandlers()}>
         </View>
         {
-          Platform.OS === "ios" ? (
-            <JellySideMenuSvg fill={this.props.fill || "#FFF"} fillOpacity={this.props.fillOpacity || 0.9} height={height} dockWidth={dockWidth} ref={(view) => {this.sideMenuSvg = view}}/>
-          ) : (
-            <View style={{position: 'absolute', top: 0, left: 0, bottom: 0, right: width - dockWidth - 30}}>
-              <JellySideMenuSvg fill={this.props.fill || "#FFF"} fillOpacity={this.props.fillOpacity || 0.9} height={height} dockWidth={dockWidth} ref={(view) => {this.sideMenuSvg = view}}/>
-            </View>
-          )
+          this.renderSvg(dockWidth)
         }
         <JellySideMenuContent is_dock={this.state.is_dock} dockWidth={dockWidth}>
           {this.props.renderMenu()}
         </JellySideMenuContent>
       </View>
     )
+  }
+
+
+  renderSvg(dockWidth) {
+    if (Platform.OS === "ios") {
+      return (
+        <JellySideMenuSvgWrapper ref={'sideMenuSvgWrapper'} width={width} height={height}>
+          <JellySideMenuSvg 
+          onJellyUndocked={this.onJellyUndocked}
+          onJellyNotUndocked={this.onJellyNotUndocked}
+          fill={this.props.fill || "#FFF"} fillOpacity={this.props.fillOpacity || 0.9} height={height} dockWidth={dockWidth} ref={'sideMenuSvg'}/>
+        </JellySideMenuSvgWrapper>
+      )
+    }
+
+    return (
+      <View style={{position: 'absolute', top: 0, left: 0, bottom: 0, right: width - dockWidth - 30}}>
+        <JellySideMenuSvgWrapper ref={'sideMenuSvgWrapper'} width={width} height={height}>
+          <JellySideMenuSvg 
+          onJellyUndocked={this.onJellyUndocked}
+          onJellyNotUndocked={this.onJellyNotUndocked}
+          fill={this.props.fill || "#FFF"} fillOpacity={this.props.fillOpacity || 0.9} height={height} dockWidth={dockWidth} ref={'sideMenuSvg'}/>
+        </JellySideMenuSvgWrapper>
+      </View>
+    )
+
+  }
+}
+
+
+class JellySideMenuSvgWrapper extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      is_undocked: true,
+    }
+  }
+
+  onJellyNotUndocked() {
+    this.setState({
+      is_undocked: false
+    })
+  }
+
+
+  onJellyUndocked() {
+    this.setState({
+      is_undocked: true
+    })
+  }
+
+
+  render() {
+    if (this.state.is_undocked) {
+      return null
+    }
+
+    return (
+      <Svg
+          style={[{position: 'absolute', top: 0, left: 0, bottom: 0, right: 0}]}
+          width={this.props.width}
+          height={this.props.height}
+      >
+        {this.props.children}
+      </Svg>
+    )    
   }
 }
 
@@ -190,6 +266,7 @@ class JellySideMenuSvg extends Component {
       offsetDragY : height / 2,
       offsetDragXSm : 0,
     }
+    this.isBusy = false
 
     this.springSystem = new rebound.SpringSystem()
     this.springSystem2 = new rebound.SpringSystem()
@@ -198,6 +275,10 @@ class JellySideMenuSvg extends Component {
     this.ssOffsetDragX.setCurrentValue(0)
     this.ssOffsetDragY.setCurrentValue(height / 2)
     this.ssOffsetDragX.addListener({onSpringUpdate: () => {
+      if (this.isBusy) {
+        return
+      }
+      this.isBusy = true;
       if (this.ssOffsetDragX.getEndValue() <= 0) {
         if (this.state.offsetDragX <= 0 && !this.state.is_undocked) {
           this.setState({offsetDragX: this.ssOffsetDragX.getCurrentValue(), is_undocked: true});
@@ -233,6 +314,17 @@ class JellySideMenuSvg extends Component {
 
     sscXSm.tension = 500;
     sscXSm.friction = 15;
+  }
+
+
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.is_undocked != this.state.is_undocked) {
+      if (nextState.is_undocked == true) {
+        this.props.onJellyUndocked();
+      } else {
+        this.props.onJellyNotUndocked();
+      }
+    }
   }
 
 
@@ -273,9 +365,7 @@ class JellySideMenuSvg extends Component {
   }
 
   render() {
-    if (this.state.is_undocked) {
-      return null
-    }
+    this.isBusy = false;
 
     var offsetDragX = this.state.offsetDragX;
     var offsetDragY = this.state.offsetDragY;
@@ -289,19 +379,14 @@ class JellySideMenuSvg extends Component {
     path = pathSide + " L" + " 0 " + this.props.height + " L0 0 Z";
 
     return (
-      <Svg
-            style={[{position: 'absolute', top: 0, left: 0, bottom: 0, right: 0}]}
-            width={width}
-            height={height}
-        >
-          <Path
-              d={path}
-              fill={this.props.fill}
-              fillOpacity={this.props.fillOpacity}/>
-      </Svg>
+        <Path
+            d={path}
+            fill={this.props.fill}
+            fillOpacity={this.props.fillOpacity}/>
     )
   }
 }
+
 
 
 module.exports = JellySideMenu;
