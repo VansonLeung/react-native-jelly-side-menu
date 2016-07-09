@@ -97,6 +97,9 @@ class JellySideMenuPage extends Component {
 ✔ Android Support @done (16-07-09 12:07)
 ☐ Context control toggle support
 ☐ Remove unnecessary imports
+☐ Add Essential control parameters support (enable/disable menu, enable/disable gesture, set default state)
+☐ Add Callback support (onWillOpen(state), onDidOpen(state), onWillClose(state), onDidClose(state))
+☐ Add Menu State check function (getState() => State)
 ☐ Add Fine tune control parameters support (thresholds of dragging, menu width, bounce tension & friction)
 ☐ Add Side menu docking direction support (top, left, right, bottom)
 ☐ Performance improvement
