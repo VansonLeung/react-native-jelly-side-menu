@@ -1,6 +1,6 @@
 {
   "name": "react-native-jelly-side-menu",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A side menu that animates like a jelly! iOS & Android tested.",
   "main": "JellySideMenu.js",
   "scripts": {
