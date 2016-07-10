@@ -2,12 +2,12 @@
 
 import rebound from 'rebound';
 
-import React, {
+import React, { Component } from 'react';
+import {
   Alert,
   Platform,
   Animated,
   AppRegistry,
-  Component,
   Dimensions,
   StyleSheet,
   Text,

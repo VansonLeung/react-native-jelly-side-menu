@@ -17,13 +17,14 @@ React Native 0.25 or higher
 
 ## Installation
 ```shell
+npm i react-native-svg --save
 npm i react-native-jelly-side-menu --save
 rnpm link
 ```
 
 ## Usage
 ```js
-import { JellySideMenu } from 'react-native-jelly-side-menu'
+import JellySideMenu from 'react-native-jelly-side-menu'
 ```
 
 ### Toggle
