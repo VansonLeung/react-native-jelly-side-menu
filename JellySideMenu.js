@@ -208,7 +208,7 @@ class JellySideMenuSvgWrapper extends Component {
 
 
   render() {
-    if (this.state.is_undocked) {
+    if (!this.isMounted() || this.state.is_undocked) {
       return null
     }
 
