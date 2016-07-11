@@ -132,6 +132,7 @@ class JellySideMenu extends Component {
 
 
   render() {
+      console.log("sRw");
     var dockPullWidth = 20;
     var dockWidth = 240;
 
@@ -159,6 +160,7 @@ class JellySideMenu extends Component {
 
 
   renderSvg(dockWidth) {
+      console.log("sRwdd");
     if (Platform.OS === "ios") {
       return (
         <JellySideMenuSvgWrapper ref={'sideMenuSvgWrapper'} width={width} height={height}>
@@ -218,7 +220,8 @@ class JellySideMenuSvgWrapper extends Component {
 
 
   render() {
-    if (this.state.is_undocked) {
+    console.log("sR");
+    if (this.is_undocked) {
       return null
     }
 
@@ -276,7 +279,11 @@ class JellySideMenuSvg extends Component {
       offsetDragY : height / 2,
       offsetDragXSm : 0,
     }
+
+    this.is_mounted = true;
+
     this.isBusy = false
+    this.isBusySm = false
 
     this.springSystem = new rebound.SpringSystem()
     this.springSystem2 = new rebound.SpringSystem()
@@ -285,6 +292,10 @@ class JellySideMenuSvg extends Component {
     this.ssOffsetDragX.setCurrentValue(0)
     this.ssOffsetDragY.setCurrentValue(height / 2)
     this.ssOffsetDragX.addListener({onSpringUpdate: () => {
+      if (!this.is_mounted) {
+        return 
+      }
+
       if (this.isBusy) {
         return
       }
@@ -292,6 +303,8 @@ class JellySideMenuSvg extends Component {
       if (this.ssOffsetDragX.getEndValue() <= 0) {
         if (this.state.offsetDragX <= 0 && !this.state.is_undocked) {
           this.setState({offsetDragX: this.ssOffsetDragX.getCurrentValue(), is_undocked: true});
+          this.ssOffsetDragX.setCurrentValue(0);
+          this.ssOffsetDragXSm.setCurrentValue(0);
           return;
         } else {
           this.setState({offsetDragX: this.ssOffsetDragX.getCurrentValue()});
@@ -310,7 +323,17 @@ class JellySideMenuSvg extends Component {
     this.ssOffsetDragY.addListener({onSpringUpdate: () => {this.setState({offsetDragY: this.ssOffsetDragY.getCurrentValue()})}})
     this.ssOffsetDragXSm = this.springSystem2.createSpring()
     this.ssOffsetDragXSm.setCurrentValue(0)
-    this.ssOffsetDragXSm.addListener({onSpringUpdate: () => {this.setState({offsetDragXSm: this.ssOffsetDragXSm.getCurrentValue()})}})
+    this.ssOffsetDragXSm.addListener({onSpringUpdate: () => {
+      if (!this.is_mounted) {
+        return 
+      }
+
+      if (this.isBusySm) {
+        return
+      }
+      this.isBusySm = true;
+      this.setState({offsetDragXSm: this.ssOffsetDragXSm.getCurrentValue()})}
+    })
 
     var sscX = this.ssOffsetDragX.getSpringConfig();
     var sscY = this.ssOffsetDragY.getSpringConfig();
@@ -324,6 +347,16 @@ class JellySideMenuSvg extends Component {
 
     sscXSm.tension = 500;
     sscXSm.friction = 15;
+  }
+
+  componentDidMount() {
+    this.is_mounted = true;
+    this.isBusy = false;
+    this.isBusySm = false;
+  }
+
+  componentWillUnmount() {
+    this.is_mounted = false;
   }
 
 
@@ -375,7 +408,9 @@ class JellySideMenuSvg extends Component {
   }
 
   render() {
+    console.log("R");
     this.isBusy = false;
+    this.isBusySm = false;
 
     var offsetDragX = this.state.offsetDragX;
     var offsetDragY = this.state.offsetDragY;
