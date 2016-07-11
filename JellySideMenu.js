@@ -188,27 +188,37 @@ class JellySideMenu extends Component {
 class JellySideMenuSvgWrapper extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      is_undocked: true,
-    }
+    this.is_undocked = true;
+    this.is_mounted = true;
+  }
+  
+  componentDidMount() {
+    this.is_mounted = true;
+    this.forceUpdate();
+  }
+  
+  componentWillUnmount() {
+    this.is_mounted = false;
   }
 
   onJellyNotUndocked() {
-    this.setState({
-      is_undocked: false
-    })
+    this.is_undocked = false;
+    if (this.is_mounted) {
+      this.forceUpdate();
+    }
   }
 
 
   onJellyUndocked() {
-    this.setState({
-      is_undocked: true
-    })
+    this.is_undocked = true;
+    if (this.is_mounted) {
+      this.forceUpdate();
+    }
   }
 
 
   render() {
-    if (!this.isMounted() || this.state.is_undocked) {
+    if (this.state.is_undocked) {
       return null
     }
 
