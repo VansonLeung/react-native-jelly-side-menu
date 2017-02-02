@@ -6,7 +6,9 @@ import React, { Component } from 'react';
 import {
   Platform,
   Animated,
-  PanResponder
+  PanResponder,
+  Dimensions,
+  View,
 } from 'react-native';
 
 import Svg, { Path } from 'react-native-svg';
@@ -70,15 +72,21 @@ class JellySideMenu extends Component {
 
   onDropSideMenuSvg(bool) {
     if (bool) {
-      this.setState({
-        is_dock: true
-      })
+      if (!this.state.is_dock)
+      {
+        this.setState({
+          is_dock: true
+        })
+      }
       this.refs.sideMenuSvgWrapper ? this.refs.sideMenuSvgWrapper.onJellyNotUndocked() : {};
       this.refs.sideMenuSvg ? this.refs.sideMenuSvg.dockOffsetDrag(true) : {};
     } else {
-      this.setState({
-        is_dock: false
-      })
+      if (this.state.is_dock)
+      {
+        this.setState({
+          is_dock: false
+        })
+      }
       this.refs.sideMenuSvg ? this.refs.sideMenuSvg.resetOffsetDrag(true) : {};
     }
   }
@@ -104,7 +112,6 @@ class JellySideMenu extends Component {
 
 
   render() {
-      console.log("sRw");
     var dockPullWidth = 20;
     var dockWidth = 240;
 
@@ -255,6 +262,7 @@ class JellySideMenuSvg extends Component {
     this.is_mounted = true;
 
     this.isBusy = false
+    this.isBusyY = false
     this.isBusySm = false
 
     this.springSystem = new rebound.SpringSystem()
@@ -292,7 +300,17 @@ class JellySideMenuSvg extends Component {
         }
       }
     }})
-    this.ssOffsetDragY.addListener({onSpringUpdate: () => {this.setState({offsetDragY: this.ssOffsetDragY.getCurrentValue()})}})
+    this.ssOffsetDragY.addListener({onSpringUpdate: () => {
+      if (!this.is_mounted) {
+        return 
+      }
+
+      if (this.isBusyY) {
+        return
+      }
+      this.isBusyY = true;
+      this.setState({offsetDragY: this.ssOffsetDragY.getCurrentValue()})}
+    })
     this.ssOffsetDragXSm = this.springSystem2.createSpring()
     this.ssOffsetDragXSm.setCurrentValue(0)
     this.ssOffsetDragXSm.addListener({onSpringUpdate: () => {
@@ -324,6 +342,7 @@ class JellySideMenuSvg extends Component {
   componentDidMount() {
     this.is_mounted = true;
     this.isBusy = false;
+    this.isBusyY = false;
     this.isBusySm = false;
   }
 
@@ -380,8 +399,8 @@ class JellySideMenuSvg extends Component {
   }
 
   render() {
-    console.log("R");
     this.isBusy = false;
+    this.isBusyY = false;
     this.isBusySm = false;
 
     var offsetDragX = this.state.offsetDragX;
