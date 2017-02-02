@@ -101,7 +101,7 @@ class JellySideMenuPage extends Component {
 ✔ iOS Support @done (16-07-09 12:07)
 ✔ Android Support @done (16-07-09 12:07)
 ☐ Context control toggle support
-☐ Remove unnecessary imports
+✔ Remove unnecessary imports
 ☐ Add Essential control parameters support (enable/disable menu, enable/disable gesture, set default state)
 ☐ Add Callback support (onWillOpen(state), onDidOpen(state), onWillClose(state), onDidClose(state))
 ☐ Add Menu State check function (getState() => State)

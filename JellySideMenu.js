@@ -4,42 +4,14 @@ import rebound from 'rebound';
 
 import React, { Component } from 'react';
 import {
-  Alert,
   Platform,
   Animated,
-  AppRegistry,
-  Dimensions,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Image,
-  TouchableHighlight,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  PanResponder,
+  PanResponder
 } from 'react-native';
 
-var {width, height} = Dimensions.get('window');
+import Svg, { Path } from 'react-native-svg';
 
-import Svg,{
-    Circle,
-    Ellipse,
-    G,
-    LinearGradient,
-    RadialGradient,
-    Line,
-    Path,
-    Polygon,
-    Polyline,
-    Rect,
-    Symbol,
-    Use,
-    Defs,
-    Stop
-} from 'react-native-svg';
-var SvgText = require('react-native-svg').Text;
-
+var { width, height } = Dimensions.get('window');
 
 class JellySideMenu extends Component {
   constructor(props) {
