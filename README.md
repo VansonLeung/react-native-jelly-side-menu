@@ -1,3 +1,5 @@
+# WARNING: DEPRECATED SORRY
+
 # react-native-jelly-side-menu
 A side menu that animates like a jelly! iOS & Android tested.
 
